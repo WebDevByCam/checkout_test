@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresas con Crema</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Fresas con Crema - Tienda</h1>
+    
+    <!-- Lista de productos -->
+    <div class="products">
+        <div class="product">
+            <h3>Fresas con Crema Pequeñas</h3>
+            <p>Precio: $5,000 COP</p>
+            <button onclick="addToCart('Fresas con Crema Pequeñas', 5000)">Agregar al carrito</button>
+        </div>
+        <div class="product">
+            <h3>Fresas con Crema Medianas</h3>
+            <p>Precio: $8,000 COP</p>
+            <button onclick="addToCart('Fresas con Crema Medianas', 8000)">Agregar al carrito</button>
+        </div>
+        <div class="product">
+            <h3>Fresas con Crema Grandes</h3>
+            <p>Precio: $12,000 COP</p>
+            <button onclick="addToCart('Fresas con Crema Grandes', 12000)">Agregar al carrito</button>
+        </div>
+    </div>
+
+    <!-- Carrito -->
+    <h2>Carrito de Compras</h2>
+    <div id="cart-items"></div>
+    <p>Total: $<span id="cart-total">0</span> COP</p>
+    <button onclick="checkout()">Ir a Checkout</button>
+
+    <!-- Checkout -->
+    <div id="checkout" style="display: none;">
+        <h2>Checkout</h2>
+        <p>Selecciona tu método de pago:</p>
+        <select id="payment-method" onchange="showPaymentDetails()">
+            <option value="">-- Selecciona --</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Bancolombia">Bancolombia</option>
+        </select>
+        
+        <!-- Detalles de pago -->
+        <div id="payment-details" style="display: none;">
+            <p id="account-info"></p>
+            <label for="customer-name">Tu nombre:</label>
+            <input type="text" id="customer-name" placeholder="Ingresa tu nombre">
+            <button onclick="sendOrder()">Enviar Pedido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
