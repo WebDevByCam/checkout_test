@@ -60,8 +60,16 @@ async function sendOrder() {
     try {
         await fetch('/.netlify/functions/send-whatsapp', {
             method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ message })
         });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
         alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
         resetCart();
     } catch (error) {
