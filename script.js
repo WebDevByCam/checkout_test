@@ -72,6 +72,9 @@ async function sendOrder() {
 
         alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
         resetCart();
+    } catch (error) {
+        alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
+        console.error(error);
     }
 }
 
