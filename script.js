@@ -58,22 +58,22 @@ async function sendOrder() {
     const message = `Nueva orden de ${customerName}:\n${cart.map(item => `${item.name} - $${item.price} COP`).join('\n')}\nTotal: $${total} COP\nMétodo de pago: ${paymentMethod}`;
     
     try {
-        await fetch('/.netlify/functions/send-whatsapp', {
+        const response = await fetch('/.netlify/functions/send-whatsapp', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ message })
         });
 
         if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
 
         alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
         resetCart();
     } catch (error) {
-        alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
+        alert('Error al enviar el pedido. Intenta de nuevo.');
         console.error(error);
     }
 }
