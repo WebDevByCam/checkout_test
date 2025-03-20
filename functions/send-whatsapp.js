@@ -1,14 +1,12 @@
 const Twilio = require('twilio');
 
 exports.handler = async (event) => {
-    // Configura los encabezados CORS
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS'
     };
 
-    // Maneja solicitudes OPTIONS (preflight) para CORS
     if (event.httpMethod === 'OPTIONS') {
         console.log('Solicitud OPTIONS recibida');
         return {
@@ -18,7 +16,6 @@ exports.handler = async (event) => {
         };
     }
 
-    // Asegúrate de que el método sea POST
     if (event.httpMethod !== 'POST') {
         console.log('Método no permitido:', event.httpMethod);
         return {
@@ -29,48 +26,60 @@ exports.handler = async (event) => {
     }
 
     try {
-        // Verifica que event.body exista
         if (!event.body) {
             throw new Error('No se proporcionó un cuerpo en la solicitud');
         }
 
-        // Parsea el cuerpo de la solicitud
         console.log('Cuerpo de la solicitud:', event.body);
         const { message } = JSON.parse(event.body);
 
-        // Verifica que el mensaje exista
         if (!message) {
             throw new Error('El campo "message" es requerido en el cuerpo de la solicitud');
         }
 
-        // Inicializa el cliente de Twilio
         const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-        // Envía el mensaje
         console.log('Enviando mensaje a WhatsApp:', { from: 'whatsapp:+14155238886', to: 'whatsapp:+573025287134', body: message });
         const twilioResponse = await client.messages.create({
-            from: 'whatsapp:+14155238886', // Número del sandbox
-            to: 'whatsapp:+573025287134',  // Tu número
+            from: 'whatsapp:+14155238886',
+            to: 'whatsapp:+573025287134',
             body: message
         });
 
-        // Verifica la respuesta de Twilio
-        if (!twilioResponse.sid) {
-            throw new Error('No se recibió un SID válido de Twilio');
+        if (!twilioResponse || !twilioResponse.sid) {
+            throw new Error('No se recibió una respuesta válida de Twilio');
         }
 
-        console.log('Mensaje enviado con éxito. Respuesta de Twilio:', twilioResponse);
+        console.log('Mensaje enviado con éxito. Respuesta inicial de Twilio:', twilioResponse);
+
+        let finalStatus = twilioResponse.status;
+        const maxAttempts = 10;
+        let attempts = 0;
+
+        while (finalStatus === 'queued' && attempts < maxAttempts) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            const updatedMessage = await client.messages(twilioResponse.sid).fetch();
+            finalStatus = updatedMessage.status;
+            console.log(`Estado del mensaje (intento ${attempts + 1}): ${finalStatus}`);
+            attempts++;
+        }
+
+        if (finalStatus !== 'sent' && finalStatus !== 'delivered') {
+            throw new Error(`El mensaje no se envió. Estado final: ${finalStatus}`);
+        }
+
+        console.log('Mensaje enviado con éxito. Estado final:', finalStatus);
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ message: 'Mensaje enviado', twilioSid: twilioResponse.sid })
+            body: JSON.stringify({ success: true, message: 'Mensaje enviado', twilioSid: twilioResponse.sid, finalStatus })
         };
     } catch (error) {
-        console.error('Error al enviar el mensaje:', error.message);
+        console.error('Error al enviar el mensaje:', error.message, error);
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ error: error.message })
+            body: JSON.stringify({ success: false, error: error.message })
         };
     }
 };

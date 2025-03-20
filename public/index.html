@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strawberry - Pedidos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="logo.png" alt="Strawberry Logo" class="logo">
+        <h1>Strawberry - Pedidos</h1>
+    </header>
+
+    <!-- Menú -->
+    <section id="menu">
+        <h2>Nuestro Menú</h2>
+
+        <!-- Fresas con crema -->
+        <div class="category">
+            <h3>Fresas con Crema</h3>
+            <div class="item">
+                <h4>Big Berry</h4>
+                <p>2 secciones, 2 toppings, 2 salsas - $20,000</p>
+                <button onclick="showCustomization('Big Berry', 20000)">Agregar al carrito</button>
+            </div>
+            <div class="item">
+                <h4>Mini Berry</h4>
+                <p>1 sección, 2 toppings, 2 salsas - $17,000</p>
+                <button onclick="showCustomization('Mini Berry', 17000)">Agregar al carrito</button>
+            </div>
+            <div class="item">
+                <h4>Crunchy Berry</h4>
+                <p>2 toppings, 2 salsas - $11,000</p>
+                <button onclick="showCustomization('Crunchy Berry', 11000)">Agregar al carrito</button>
+            </div>
+            <div class="item">
+                <h4>Berry Light</h4>
+                <p>Ensalada de yogur griego y galleta maría, plátano y granola - $20,000</p>
+                <button onclick="addToCart('Berry Light', 20000)">Agregar al carrito</button>
+            </div>
+        </div>
+
+        <!-- Waffles -->
+        <div class="category">
+            <h3>Waffles</h3>
+            <div class="item">
+                <h4>Choclo</h4>
+                <p>Topping de queso doble crema y mermelada de la casa - $12,000</p>
+                <button onclick="addToCart('Choclo', 12000)">Agregar al carrito</button>
+            </div>
+            <div class="item">
+                <h4>Pandebono</h4>
+                <p>Topping de crema y fresa - $14,000</p>
+                <button onclick="addToCart('Pandebono', 14000)">Agregar al carrito</button>
+            </div>
+        </div>
+
+        <!-- Bebidas -->
+        <div class="category">
+            <h3>Bebidas</h3>
+            <div class="item">
+                <h4>Soda Berry</h4>
+                <p>Soda de fresa y limón - $10,000</p>
+                <button onclick="addToCart('Soda Berry', 10000)">Agregar al carrito</button>
+            </div>
+            <div class="item">
+                <h4>Agua</h4>
+                <p>$3,000</p>
+                <button onclick="addToCart('Agua', 3000)">Agregar al carrito</button>
+            </div>
+            <div class="item">
+                <h4>Coca Cola</h4>
+                <p>$3,500</p>
+                <button onclick="addToCart('Coca Cola', 3500)">Agregar al carrito</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalización (Secciones, Toppings, Salsas) -->
+    <section id="customization" style="display: none;">
+        <h2>Personaliza tu pedido</h2>
+        <h3 id="custom-item-name"></h3>
+        <div class="custom-options">
+            <h4>Elige tu sección</h4>
+            <select id="section">
+                <option value="">Selecciona una sección</option>
+                <option value="Ponqué Gala">Ponqué Gala</option>
+                <option value="Oreo Triturada">Oreo Triturada</option>
+                <option value="Chocorramo">Chocorramo</option>
+                <option value="Brownie">Brownie</option>
+            </select>
+        </div>
+        <div class="custom-options">
+            <h4>Elige tus toppings (máximo 2)</h4>
+            <label><input type="checkbox" name="topping" value="Mini Chips"> Mini Chips</label>
+            <label><input type="checkbox" name="topping" value="Queso"> Queso</label>
+            <label><input type="checkbox" name="topping" value="Chips Blancos"> Chips Blancos</label>
+            <label><input type="checkbox" name="topping" value="Chips Negros"> Chips Negros</label>
+            <label><input type="checkbox" name="topping" value="Piazza"> Piazza</label>
+            <label><input type="checkbox" name="topping" value="Granola"> Granola</label>
+            <label><input type="checkbox" name="topping" value="Mini Merengues"> Mini Merengues</label>
+            <label><input type="checkbox" name="topping" value="Perlas Explosivas"> Perlas Explosivas</label>
+        </div>
+        <div class="custom-options">
+            <h4>Elige tus salsas (máximo 2)</h4>
+            <label><input type="checkbox" name="salsa" value="Arequipe"> Arequipe</label>
+            <label><input type="checkbox" name="salsa" value="Mora"> Mora</label>
+            <label><input type="checkbox" name="salsa" value="Leche Condensada"> Leche Condensada</label>
+            <label><input type="checkbox" name="salsa" value="Chocolate"> Chocolate</label>
+        </div>
+        <button onclick="addCustomizedItem()">Confirmar personalización</button>
+        <button onclick="document.getElementById('customization').style.display = 'none';">Cancelar</button>
+    </section>
+
+    <!-- Carrito -->
+    <section id="cart-section">
+        <h2>Tu Carrito</h2>
+        <div id="cart-items"></div>
+        <p>Total: $<span id="cart-total">0</span> COP</p>
+        <button onclick="checkout()" id="checkout-btn" disabled>Ir al Checkout</button>
+    </section>
+
+    <!-- Checkout -->
+    <section id="checkout" style="display: none;">
+        <h2>Checkout</h2>
+        <label for="customer-name">Nombre:</label>
+        <input type="text" id="customer-name" placeholder="Ingresa tu nombre">
+        <label for="payment-method">Método de Pago:</label>
+        <select id="payment-method" onchange="showPaymentDetails()">
+            <option value="">Selecciona un método de pago</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Bancolombia">Bancolombia</option>
+        </select>
+        <div id="payment-details" style="display: none;">
+            <p id="account-info"></p>
+        </div>
+        <button onclick="sendOrder()">Enviar Pedido</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,5 +1,48 @@
 let cart = [];
 let total = 0;
+let currentItem = null;
+let currentPrice = 0;
+
+function showCustomization(itemName, price) {
+    currentItem = itemName;
+    currentPrice = price;
+    document.getElementById('custom-item-name').textContent = itemName;
+    document.getElementById('customization').style.display = 'block';
+    // Resetear selecciones
+    document.getElementById('section').value = '';
+    document.querySelectorAll('input[name="topping"]').forEach(checkbox => checkbox.checked = false);
+    document.querySelectorAll('input[name="salsa"]').forEach(checkbox => checkbox.checked = false);
+}
+
+function addCustomizedItem() {
+    const section = document.getElementById('section').value;
+    const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(checkbox => checkbox.value);
+    const salsas = Array.from(document.querySelectorAll('input[name="salsa"]:checked')).map(checkbox => checkbox.value);
+
+    // Validar máximo de toppings y salsas
+    if (toppings.length > 2) {
+        alert('Por favor selecciona un máximo de 2 toppings.');
+        return;
+    }
+    if (salsas.length > 2) {
+        alert('Por favor selecciona un máximo de 2 salsas.');
+        return;
+    }
+
+    // Crear el nombre del ítem con las personalizaciones
+    let itemName = currentItem;
+    if (section) itemName += ` (Sección: ${section})`;
+    if (toppings.length > 0) itemName += ` (Toppings: ${toppings.join(', ')})`;
+    if (salsas.length > 0) itemName += ` (Salsas: ${salsas.join(', ')})`;
+
+    // Agregar al carrito
+    cart.push({ name: itemName, price: currentPrice });
+    total += currentPrice;
+    updateCart();
+
+    // Ocultar la sección de personalización
+    document.getElementById('customization').style.display = 'none';
+}
 
 function addToCart(itemName, price) {
     cart.push({ name: itemName, price: price });
@@ -16,6 +59,7 @@ function updateCart() {
         cartItems.appendChild(p);
     });
     document.getElementById('cart-total').textContent = total;
+    document.getElementById('checkout-btn').disabled = cart.length === 0;
 }
 
 function checkout() {
@@ -58,24 +102,33 @@ async function sendOrder() {
     const message = `Nueva orden de ${customerName}:\n${cart.map(item => `${item.name} - $${item.price} COP`).join('\n')}\nTotal: $${total} COP\nMétodo de pago: ${paymentMethod}`;
     
     try {
+        console.log('Enviando solicitud a:', '/.netlify/functions/send-whatsapp');
+        console.log('Método:', 'POST');
+        console.log('Cuerpo de la solicitud:', JSON.stringify({ message }));
+
         const response = await fetch('/.netlify/functions/send-whatsapp', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache'
             },
             body: JSON.stringify({ message })
         });
 
-        // Verifica si la solicitud fue exitosa
+        console.log('Código de estado de la respuesta:', response.status);
+        console.log('Encabezados de la respuesta:', response.headers);
+
         if (!response.ok) {
             const errorData = await response.json();
+            console.log('Error en la respuesta:', errorData);
             throw new Error(`Error: ${response.status} ${response.statusText} - ${errorData.error || 'Error desconocido'}`);
         }
 
-        // Analiza la respuesta para confirmar que el mensaje se envió
         const data = await response.json();
-        if (data.error) {
-            throw new Error(`Error al enviar el mensaje: ${data.error}`);
+        console.log('Cuerpo de la respuesta:', data);
+
+        if (!data.success) {
+            throw new Error(`Error al enviar el mensaje: ${data.error || 'Error desconocido'}`);
         }
 
         alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
