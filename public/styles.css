@@ -133,3 +133,28 @@ button:disabled {
 #payment-details {
   margin-top: 10px;
 }
+
+
+.promo-banner {
+  background-color: #FF0000;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1em;
+}
+.whatsapp-button:hover {
+  background-color: #1ebe52;
+}

@@ -83,8 +83,8 @@
         <h2>Personaliza tu pedido</h2>
         <h3 id="custom-item-name"></h3>
         <div class="custom-options">
-            <h4>Elige tu sección</h4>
-            <select id="section">
+            <h4>Elige tu sección (obligatorio)</h4>
+            <select id="section" required>
                 <option value="">Selecciona una sección</option>
                 <option value="Ponqué Gala">Ponqué Gala</option>
                 <option value="Oreo Triturada">Oreo Triturada</option>
@@ -93,27 +93,62 @@
             </select>
         </div>
         <div class="custom-options">
-            <h4>Elige tus toppings (máximo 2)</h4>
-            <label><input type="checkbox" name="topping" value="Mini Chips"> Mini Chips</label>
-            <label><input type="checkbox" name="topping" value="Queso"> Queso</label>
-            <label><input type="checkbox" name="topping" value="Chips Blancos"> Chips Blancos</label>
-            <label><input type="checkbox" name="topping" value="Chips Negros"> Chips Negros</label>
-            <label><input type="checkbox" name="topping" value="Piazza"> Piazza</label>
-            <label><input type="checkbox" name="topping" value="Granola"> Granola</label>
-            <label><input type="checkbox" name="topping" value="Mini Merengues"> Mini Merengues</label>
-            <label><input type="checkbox" name="topping" value="Perlas Explosivas"> Perlas Explosivas</label>
+            <h4>Elige tus toppings (debes elegir exactamente 2)</h4>
+            <div>
+                <label>Topping 1:</label>
+                <select id="topping1" required>
+                    <option value="">Selecciona un topping</option>
+                    <option value="Mini Chips">Mini Chips</option>
+                    <option value="Queso">Queso</option>
+                    <option value="Chips Blancos">Chips Blancos</option>
+                    <option value="Chips Negros">Chips Negros</option>
+                    <option value="Piazza">Piazza</option>
+                    <option value="Granola">Granola</option>
+                    <option value="Mini Merengues">Mini Merengues</option>
+                    <option value="Perlas Explosivas">Perlas Explosivas</option>
+                </select>
+            </div>
+            <div>
+                <label>Topping 2:</label>
+                <select id="topping2" required>
+                    <option value="">Selecciona un topping</option>
+                    <option value="Mini Chips">Mini Chips</option>
+                    <option value="Queso">Queso</option>
+                    <option value="Chips Blancos">Chips Blancos</option>
+                    <option value="Chips Negros">Chips Negros</option>
+                    <option value="Piazza">Piazza</option>
+                    <option value="Granola">Granola</option>
+                    <option value="Mini Merengues">Mini Merengues</option>
+                    <option value="Perlas Explosivas">Perlas Explosivas</option>
+                </select>
+            </div>
         </div>
         <div class="custom-options">
-            <h4>Elige tus salsas (máximo 2)</h4>
-            <label><input type="checkbox" name="salsa" value="Arequipe"> Arequipe</label>
-            <label><input type="checkbox" name="salsa" value="Mora"> Mora</label>
-            <label><input type="checkbox" name="salsa" value="Leche Condensada"> Leche Condensada</label>
-            <label><input type="checkbox" name="salsa" value="Chocolate"> Chocolate</label>
+            <h4>Elige tus salsas (debes elegir exactamente 2)</h4>
+            <div>
+                <label>Salsa 1:</label>
+                <select id="salsa1" required>
+                    <option value="">Selecciona una salsa</option>
+                    <option value="Arequipe">Arequipe</option>
+                    <option value="Mora">Mora</option>
+                    <option value="Leche Condensada">Leche Condensada</option>
+                    <option value="Chocolate">Chocolate</option>
+                </select>
+            </div>
+            <div>
+                <label>Salsa 2:</label>
+                <select id="salsa2" required>
+                    <option value="">Selecciona una salsa</option>
+                    <option value="Arequipe">Arequipe</option>
+                    <option value="Mora">Mora</option>
+                    <option value="Leche Condensada">Leche Condensada</option>
+                    <option value="Chocolate">Chocolate</option>
+                </select>
+            </div>
         </div>
         <button onclick="addCustomizedItem()">Confirmar personalización</button>
         <button onclick="document.getElementById('customization').style.display = 'none';">Cancelar</button>
     </section>
-
     <!-- Carrito -->
     <section id="cart-section">
         <h2>Tu Carrito</h2>
@@ -140,6 +175,25 @@
         <input type="file" id="payment-proof" accept="image/*">
         <button onclick="sendOrder()">Enviar Pedido</button>
     </section>
+
+
+    <div class="promo-banner">
+        🎉 ¡10% de descuento en tu primer pedido! Usa el código STRAWBERRY10
+    </div>
+
+
+    <section id="hours">
+        <h2>Horarios de Atención</h2>
+        <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+        <p>Sábados: 10:00 AM - 4:00 PM</p>
+        <p>Domingos: Cerrado</p>
+    </section>
+
+
+    <a href="https://wa.me/573025287134" class="whatsapp-button" target="_blank">
+        💬 Contactar por WhatsApp
+    </a>
+
 
     <script src="script.js"></script>
 </body>

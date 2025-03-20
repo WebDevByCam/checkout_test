@@ -13,29 +13,41 @@ function showCustomization(itemName, price) {
     document.querySelectorAll('input[name="salsa"]').forEach(checkbox => checkbox.checked = false);
 }
 
+
+
+function updateCartIcon() {
+    document.getElementById('cart-count').textContent = cart.length;
+}
+
+// Llama a updateCartIcon() en las funciones que modifican el carrito
 function addCustomizedItem() {
     const section = document.getElementById('section').value;
-    const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(checkbox => checkbox.value);
-    const salsas = Array.from(document.querySelectorAll('input[name="salsa"]:checked')).map(checkbox => checkbox.value);
+    const topping1 = document.getElementById('topping1').value;
+    const topping2 = document.getElementById('topping2').value;
+    const salsa1 = document.getElementById('salsa1').value;
+    const salsa2 = document.getElementById('salsa2').value;
 
-    if (toppings.length > 2) {
-        alert('Por favor selecciona un máximo de 2 toppings.');
+    if (!section) {
+        alert('Por favor selecciona una sección.');
         return;
     }
-    if (salsas.length > 2) {
-        alert('Por favor selecciona un máximo de 2 salsas.');
+    if (!topping1 || !topping2) {
+        alert('Por favor selecciona exactamente 2 toppings.');
+        return;
+    }
+    if (!salsa1 || !salsa2) {
+        alert('Por favor selecciona exactamente 2 salsas.');
         return;
     }
 
     let itemName = currentItem;
-    if (section) itemName += ` (Sección: ${section})`;
-    if (toppings.length > 0) itemName += ` (Toppings: ${toppings.join(', ')})`;
-    if (salsas.length > 0) itemName += ` (Salsas: ${salsas.join(', ')})`;
+    itemName += ` (Sección: ${section})`;
+    itemName += ` (Toppings: ${topping1}, ${topping2})`;
+    itemName += ` (Salsas: ${salsa1}, ${salsa2})`;
 
     cart.push({ name: itemName, price: currentPrice });
     total += currentPrice;
     updateCart();
-    document.getElementById('customization').style.display = 'none';
 }
 
 function addToCart(itemName, price) {
@@ -44,16 +56,39 @@ function addToCart(itemName, price) {
     updateCart();
 }
 
+function resetCart() {
+    cart = [];
+    total = 0;
+    updateCart();
+    document.getElementById('checkout').style.display = 'none';
+    document.getElementById('payment-details').style.display = 'none';
+    document.getElementById('customer-name').value = '';
+    document.getElementById('payment-method').value = '';
+    document.getElementById('payment-proof').value = '';
+}
+
 function updateCart() {
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
         const p = document.createElement('p');
         p.textContent = `${item.name} - $${item.price} COP`;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Eliminar';
+        removeButton.style.marginLeft = '10px';
+        removeButton.onclick = () => removeFromCart(index);
+        p.appendChild(removeButton);
         cartItems.appendChild(p);
     });
     document.getElementById('cart-total').textContent = total;
     document.getElementById('checkout-btn').disabled = cart.length === 0;
+    updateCartIcon(); // Actualizar el ícono del carrito
+}
+
+function removeFromCart(index) {
+    total -= cart[index].price;
+    cart.splice(index, 1);
+    updateCart();
 }
 
 function checkout() {
