@@ -66,15 +66,23 @@ async function sendOrder() {
             body: JSON.stringify({ message })
         });
 
+        // Verifica si la solicitud fue exitosa
         if (!response.ok) {
-            throw new Error(`Error: ${response.status} ${response.statusText}`);
+            const errorData = await response.json();
+            throw new Error(`Error: ${response.status} ${response.statusText} - ${errorData.error || 'Error desconocido'}`);
+        }
+
+        // Analiza la respuesta para confirmar que el mensaje se envió
+        const data = await response.json();
+        if (data.error) {
+            throw new Error(`Error al enviar el mensaje: ${data.error}`);
         }
 
         alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
         resetCart();
     } catch (error) {
-        alert('Error al enviar el pedido. Intenta de nuevo.');
-        console.error(error);
+        alert(`Error al enviar el pedido: ${error.message}. Intenta de nuevo.`);
+        console.error('Error en sendOrder:', error);
     }
 }
 
