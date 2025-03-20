@@ -1,4 +1,12 @@
 const Twilio = require('twilio');
+const cloudinary = require('cloudinary').v2;
+
+// Configurar Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 exports.handler = async (event) => {
     const headers = {
@@ -31,19 +39,34 @@ exports.handler = async (event) => {
         }
 
         console.log('Cuerpo de la solicitud:', event.body);
-        const { message } = JSON.parse(event.body);
+        const { message, paymentProof, fileName } = JSON.parse(event.body);
 
         if (!message) {
             throw new Error('El campo "message" es requerido en el cuerpo de la solicitud');
         }
+        if (!paymentProof) {
+            throw new Error('El campo "paymentProof" es requerido en el cuerpo de la solicitud');
+        }
 
+        // Subir la imagen a Cloudinary
+        const uploadResult = await cloudinary.uploader.upload(`data:image/jpeg;base64,${paymentProof}`, {
+            public_id: `comprobantes/${fileName}-${Date.now()}`,
+            folder: 'strawberry'
+        });
+        const imageUrl = uploadResult.secure_url;
+        console.log('Imagen subida a Cloudinary:', imageUrl);
+
+        // Construir el mensaje con la URL de la imagen
+        const fullMessage = `${message}\n\nComprobante de pago: ${imageUrl}`;
+
+        // Inicializar Twilio
         const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-        console.log('Enviando mensaje a WhatsApp:', { from: 'whatsapp:+14155238886', to: 'whatsapp:+573025287134', body: message });
+        console.log('Enviando mensaje a WhatsApp:', { from: 'whatsapp:+14155238886', to: 'whatsapp:+573025287134', body: fullMessage });
         const twilioResponse = await client.messages.create({
             from: 'whatsapp:+14155238886',
             to: 'whatsapp:+573025287134',
-            body: message
+            body: fullMessage
         });
 
         if (!twilioResponse || !twilioResponse.sid) {
@@ -69,6 +92,10 @@ exports.handler = async (event) => {
         }
 
         console.log('Mensaje enviado con éxito. Estado final:', finalStatus);
+
+        // Opcional: Eliminar la imagen de Cloudinary después de enviarla
+        // await cloudinary.uploader.destroy(uploadResult.public_id);
+
         return {
             statusCode: 200,
             headers,

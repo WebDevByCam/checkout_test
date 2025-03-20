@@ -8,7 +8,6 @@ function showCustomization(itemName, price) {
     currentPrice = price;
     document.getElementById('custom-item-name').textContent = itemName;
     document.getElementById('customization').style.display = 'block';
-    // Resetear selecciones
     document.getElementById('section').value = '';
     document.querySelectorAll('input[name="topping"]').forEach(checkbox => checkbox.checked = false);
     document.querySelectorAll('input[name="salsa"]').forEach(checkbox => checkbox.checked = false);
@@ -19,7 +18,6 @@ function addCustomizedItem() {
     const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(checkbox => checkbox.value);
     const salsas = Array.from(document.querySelectorAll('input[name="salsa"]:checked')).map(checkbox => checkbox.value);
 
-    // Validar máximo de toppings y salsas
     if (toppings.length > 2) {
         alert('Por favor selecciona un máximo de 2 toppings.');
         return;
@@ -29,18 +27,14 @@ function addCustomizedItem() {
         return;
     }
 
-    // Crear el nombre del ítem con las personalizaciones
     let itemName = currentItem;
     if (section) itemName += ` (Sección: ${section})`;
     if (toppings.length > 0) itemName += ` (Toppings: ${toppings.join(', ')})`;
     if (salsas.length > 0) itemName += ` (Salsas: ${salsas.join(', ')})`;
 
-    // Agregar al carrito
     cart.push({ name: itemName, price: currentPrice });
     total += currentPrice;
     updateCart();
-
-    // Ocultar la sección de personalización
     document.getElementById('customization').style.display = 'none';
 }
 
@@ -89,6 +83,8 @@ function showPaymentDetails() {
 async function sendOrder() {
     const customerName = document.getElementById('customer-name').value.trim();
     const paymentMethod = document.getElementById('payment-method').value;
+    const paymentProofInput = document.getElementById('payment-proof');
+    const paymentProofFile = paymentProofInput.files[0];
 
     if (!customerName) {
         alert('Por favor ingresa tu nombre');
@@ -98,13 +94,24 @@ async function sendOrder() {
         alert('Por favor selecciona un método de pago');
         return;
     }
+    if (!paymentProofFile) {
+        alert('Por favor sube el comprobante de pago');
+        return;
+    }
+
+    // Leer la imagen como Base64
+    const paymentProofBase64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(',')[1]); // Obtener solo el contenido Base64
+        reader.readAsDataURL(paymentProofFile);
+    });
 
     const message = `Nueva orden de ${customerName}:\n${cart.map(item => `${item.name} - $${item.price} COP`).join('\n')}\nTotal: $${total} COP\nMétodo de pago: ${paymentMethod}`;
     
     try {
         console.log('Enviando solicitud a:', '/.netlify/functions/send-whatsapp');
         console.log('Método:', 'POST');
-        console.log('Cuerpo de la solicitud:', JSON.stringify({ message }));
+        console.log('Cuerpo de la solicitud:', JSON.stringify({ message, paymentProof: paymentProofBase64, fileName: paymentProofFile.name }));
 
         const response = await fetch('/.netlify/functions/send-whatsapp', {
             method: 'POST',
@@ -112,7 +119,7 @@ async function sendOrder() {
                 'Content-Type': 'application/json',
                 'Cache-Control': 'no-cache'
             },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({ message, paymentProof: paymentProofBase64, fileName: paymentProofFile.name })
         });
 
         console.log('Código de estado de la respuesta:', response.status);
@@ -131,7 +138,7 @@ async function sendOrder() {
             throw new Error(`Error al enviar el mensaje: ${data.error || 'Error desconocido'}`);
         }
 
-        alert('Pedido enviado exitosamente. Por favor realiza la transferencia y espera confirmación.');
+        alert('Pedido enviado exitosamente. Por favor espera confirmación.');
         resetCart();
     } catch (error) {
         alert(`Error al enviar el pedido: ${error.message}. Intenta de nuevo.`);
@@ -147,4 +154,5 @@ function resetCart() {
     document.getElementById('payment-details').style.display = 'none';
     document.getElementById('customer-name').value = '';
     document.getElementById('payment-method').value = '';
+    document.getElementById('payment-proof').value = ''; // Limpiar el campo de archivo
 }
