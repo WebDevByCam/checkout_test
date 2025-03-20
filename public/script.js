@@ -13,13 +13,6 @@ function showCustomization(itemName, price) {
     document.querySelectorAll('input[name="salsa"]').forEach(checkbox => checkbox.checked = false);
 }
 
-
-
-function updateCartIcon() {
-    document.getElementById('cart-count').textContent = cart.length;
-}
-
-// Llama a updateCartIcon() en las funciones que modifican el carrito
 function addCustomizedItem() {
     const section = document.getElementById('section').value;
     const topping1 = document.getElementById('topping1').value;
@@ -82,7 +75,6 @@ function updateCart() {
     });
     document.getElementById('cart-total').textContent = total;
     document.getElementById('checkout-btn').disabled = cart.length === 0;
-    updateCartIcon(); // Actualizar el ícono del carrito
 }
 
 function removeFromCart(index) {
@@ -144,9 +136,6 @@ async function sendOrder() {
     const message = `Nueva orden de ${customerName}:\n${cart.map(item => `${item.name} - $${item.price} COP`).join('\n')}\nTotal: $${total} COP\nMétodo de pago: ${paymentMethod}`;
     
     try {
-        console.log('Enviando solicitud a:', '/.netlify/functions/send-whatsapp');
-        console.log('Método:', 'POST');
-        console.log('Cuerpo de la solicitud:', JSON.stringify({ message, paymentProof: paymentProofBase64, fileName: paymentProofFile.name }));
 
         const response = await fetch('/.netlify/functions/send-whatsapp', {
             method: 'POST',
@@ -157,37 +146,26 @@ async function sendOrder() {
             body: JSON.stringify({ message, paymentProof: paymentProofBase64, fileName: paymentProofFile.name })
         });
 
-        console.log('Código de estado de la respuesta:', response.status);
-        console.log('Encabezados de la respuesta:', response.headers);
-
         if (!response.ok) {
             const errorData = await response.json();
-            console.log('Error en la respuesta:', errorData);
             throw new Error(`Error: ${response.status} ${response.statusText} - ${errorData.error || 'Error desconocido'}`);
         }
 
         const data = await response.json();
-        console.log('Cuerpo de la respuesta:', data);
 
         if (!data.success) {
             throw new Error(`Error al enviar el mensaje: ${data.error || 'Error desconocido'}`);
         }
 
-        alert('Pedido enviado exitosamente. Por favor espera confirmación.');
+        document.getElementById('checkout').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'block';
         resetCart();
     } catch (error) {
         alert(`Error al enviar el pedido: ${error.message}. Intenta de nuevo.`);
-        console.error('Error en sendOrder:', error);
     }
 }
 
-function resetCart() {
-    cart = [];
-    total = 0;
-    updateCart();
-    document.getElementById('checkout').style.display = 'none';
-    document.getElementById('payment-details').style.display = 'none';
-    document.getElementById('customer-name').value = '';
-    document.getElementById('payment-method').value = '';
-    document.getElementById('payment-proof').value = ''; // Limpiar el campo de archivo
+function returnToMenu() {
+    document.getElementById('confirmation').style.display = 'none';
+    document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
 }

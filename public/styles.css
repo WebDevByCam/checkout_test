@@ -135,6 +135,70 @@ button:disabled {
 }
 
 
+
+#confirmation {
+  background-color: #fff;
+  border: 2px solid #FF0000;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.confirmation-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.confirmation-container h2 {
+  color: #FF0000;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.confirmation-container p {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.confirmation-container a {
+  color: #25D366;
+  text-decoration: underline;
+}
+
+.confirmation-container a:hover {
+  color: #1ebe52;
+}
+
+.confirmation-container button {
+  background-color: #FF0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 20px;
+}
+
+.confirmation-container button:hover {
+  background-color: #cc0000;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+
+
 .promo-banner {
   background-color: #FF0000;
   color: white;
