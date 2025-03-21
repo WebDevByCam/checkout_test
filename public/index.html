@@ -3,207 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strawberry - Pedidos</title>
+    <title>Strawberry</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <img src="logo.png" alt="Strawberry Logo" class="logo">
-        <h1>Strawberry - Pedidos</h1>
-    </header>
-
-    <!-- Menú -->
-    <section id="menu">
-        <h2>Nuestro Menú</h2>
-
-        <!-- Fresas con crema -->
-        <div class="category">
-            <h3>Fresas con Crema</h3>
-            <div class="item">
-                <h4>Big Berry</h4>
-                <p>2 secciones, 2 toppings, 2 salsas - $20,000</p>
-                <button onclick="showCustomization('Big Berry', 20000)">Agregar al carrito</button>
-            </div>
-            <div class="item">
-                <h4>Mini Berry</h4>
-                <p>1 sección, 2 toppings, 2 salsas - $17,000</p>
-                <button onclick="showCustomization('Mini Berry', 17000)">Agregar al carrito</button>
-            </div>
-            <div class="item">
-                <h4>Crunchy Berry</h4>
-                <p>2 toppings, 2 salsas - $11,000</p>
-                <button onclick="showCustomization('Crunchy Berry', 11000)">Agregar al carrito</button>
-            </div>
-            <div class="item">
-                <h4>Berry Light</h4>
-                <p>Ensalada de yogur griego y galleta maría, plátano y granola - $20,000</p>
-                <button onclick="addToCart('Berry Light', 20000)">Agregar al carrito</button>
-            </div>
+    <!-- Barra de navegación -->
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo Strawberry" class="logo-image">
         </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="#memories">Nosotros</a></li>
+        </ul>
+    </nav>
 
-        <!-- Waffles -->
-        <div class="category">
-            <h3>Waffles</h3>
-            <div class="item">
-                <h4>Choclo</h4>
-                <p>Topping de queso doble crema y mermelada de la casa - $12,000</p>
-                <button onclick="addToCart('Choclo', 12000)">Agregar al carrito</button>
+    <main>
+        <!-- Sección principal -->
+        <section id="hero" class="hero-section">
+            <div class="hero-image"></div>
+            <div class="hero-content">
+                <h1>Deleitamos tu paladar</h1>
+                <button onclick="window.location.href = 'menu.html';">Pide el tuyo</button>
             </div>
-            <div class="item">
-                <h4>Pandebono</h4>
-                <p>Topping de crema y fresa - $14,000</p>
-                <button onclick="addToCart('Pandebono', 14000)">Agregar al carrito</button>
+        </section>
+
+        <!-- Sección Showstoppers -->
+        <section class="showstoppers-section">
+            <h2>Felicidad 100% garantizada...</h2>
+            <div class="showstoppers-container">
+                <div class="showstopper-item">
+                    <div class="showstopper-image">
+                        <img src="images/2.jpg" alt="Hechos" class="showstopper-image">
+                    </div>
+                    <h3>Hechos</h3>
+                </div>
+                <div class="showstopper-item">
+                    <div class="showstopper-image">
+                        <img src="images/3.jpg" alt="Con" class="showstopper-image">
+                    </div>
+                    <h3>Con</h3>
+                </div>
+                <div class="showstopper-item">
+                    <div class="showstopper-image">
+                        <img src="images/4.jpg" alt="Amor" class="showstopper-image">
+                    </div>
+                    <h3>Amor</h3>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Bebidas -->
-        <div class="category">
-            <h3>Bebidas</h3>
-            <div class="item">
-                <h4>Soda Berry</h4>
-                <p>Soda de fresa y limón - $10,000</p>
-                <button onclick="addToCart('Soda Berry', 10000)">Agregar al carrito</button>
+        <!-- Sección Memories Made Sweeter -->
+        <section id="memories" class="memories-section">
+            <div class="memories-container">
+                <div class="memories-content">
+                    <h2>Lorem, ipsum dolor.</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, consequuntur? Necessitatibus vero explicabo eos ducimus quia quae sit consequatur magni veniam. Numquam maiores quod consequatur aliquid similique fugit magnam atque?</p>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur animi praesentium laborum sed maxime ab, eos beatae neque aut unde?</p>
+                    <button onclick="window.location.href = 'menu.html';">Pide ahora</button>
+                </div>
+                <div class="memories-image">
+                    <img src="images/5.jpg" alt="Memories Made Sweeter" class="memories-image">
+                </div>
             </div>
-            <div class="item">
-                <h4>Agua</h4>
-                <p>$3,000</p>
-                <button onclick="addToCart('Agua', 3000)">Agregar al carrito</button>
+        </section>
+
+        <!-- Sección de Ubicación con Mapa -->
+        <section class="location-section">
+            <h2>Encuéntranos</h2>
+            <p>Visítanos en nuestra ubicación: Calle 15, frente a C.C. Primavera Urbana, Villavicencio.</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d258.30474868300644!2d-73.64004721026976!3d4.135069988180735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3e2fb096d497f3%3A0xf79108d6507ea22c!2sStrawberry%20%22Las%20mejores%20fresas%20con%20crema%22!5e0!3m2!1ses-419!2sco!4v1742531221308!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div class="item">
-                <h4>Coca Cola</h4>
-                <p>$3,500</p>
-                <button onclick="addToCart('Coca Cola', 3500)">Agregar al carrito</button>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-section">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Discover</h3>
+                        <ul>
+                            <li><a href="#">Our world</a></li>
+                            <li><a href="#">Stores</a></li>
+                            <li><a href="#">Sweet trends</a></li>
+                            <li><a href="#">Download app</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Franchise</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Logo en el footer" class="footer-logo-image">
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Personalización (Secciones, Toppings, Salsas) -->
-    <section id="customization" style="display: none;">
-        <h2>Personaliza tu pedido</h2>
-        <h3 id="custom-item-name"></h3>
-        <div class="custom-options">
-            <h4>Elige tu sección (obligatorio)</h4>
-            <select id="section" required>
-                <option value="">Selecciona una sección</option>
-                <option value="Ponqué Gala">Ponqué Gala</option>
-                <option value="Oreo Triturada">Oreo Triturada</option>
-                <option value="Chocorramo">Chocorramo</option>
-                <option value="Brownie">Brownie</option>
-            </select>
-        </div>
-        <div class="custom-options">
-            <h4>Elige tus toppings (debes elegir exactamente 2)</h4>
-            <div>
-                <label>Topping 1:</label>
-                <select id="topping1" required>
-                    <option value="">Selecciona un topping</option>
-                    <option value="Mini Chips">Mini Chips</option>
-                    <option value="Queso">Queso</option>
-                    <option value="Chips Blancos">Chips Blancos</option>
-                    <option value="Chips Negros">Chips Negros</option>
-                    <option value="Piazza">Piazza</option>
-                    <option value="Granola">Granola</option>
-                    <option value="Mini Merengues">Mini Merengues</option>
-                    <option value="Perlas Explosivas">Perlas Explosivas</option>
-                </select>
+            <div class="footer-social">
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
-            <div>
-                <label>Topping 2:</label>
-                <select id="topping2" required>
-                    <option value="">Selecciona un topping</option>
-                    <option value="Mini Chips">Mini Chips</option>
-                    <option value="Queso">Queso</option>
-                    <option value="Chips Blancos">Chips Blancos</option>
-                    <option value="Chips Negros">Chips Negros</option>
-                    <option value="Piazza">Piazza</option>
-                    <option value="Granola">Granola</option>
-                    <option value="Mini Merengues">Mini Merengues</option>
-                    <option value="Perlas Explosivas">Perlas Explosivas</option>
-                </select>
-            </div>
-        </div>
-        <div class="custom-options">
-            <h4>Elige tus salsas (debes elegir exactamente 2)</h4>
-            <div>
-                <label>Salsa 1:</label>
-                <select id="salsa1" required>
-                    <option value="">Selecciona una salsa</option>
-                    <option value="Arequipe">Arequipe</option>
-                    <option value="Mora">Mora</option>
-                    <option value="Leche Condensada">Leche Condensada</option>
-                    <option value="Chocolate">Chocolate</option>
-                </select>
-            </div>
-            <div>
-                <label>Salsa 2:</label>
-                <select id="salsa2" required>
-                    <option value="">Selecciona una salsa</option>
-                    <option value="Arequipe">Arequipe</option>
-                    <option value="Mora">Mora</option>
-                    <option value="Leche Condensada">Leche Condensada</option>
-                    <option value="Chocolate">Chocolate</option>
-                </select>
-            </div>
-        </div>
-        <button onclick="addCustomizedItem()">Confirmar personalización</button>
-        <button onclick="document.getElementById('customization').style.display = 'none';">Cancelar</button>
-    </section>
-    <!-- Carrito -->
-    <section id="cart-section">
-        <h2>Tu Carrito</h2>
-        <div id="cart-items"></div>
-        <p>Total: $<span id="cart-total">0</span> COP</p>
-        <button onclick="checkout()" id="checkout-btn" disabled>Ir al Checkout</button>
-    </section>
-
-    <!-- Checkout -->
-    <section id="checkout" style="display: none;">
-        <h2>Checkout</h2>
-        <label for="customer-name">Nombre:</label>
-        <input type="text" id="customer-name" placeholder="Ingresa tu nombre">
-        <label for="payment-method">Método de Pago:</label>
-        <select id="payment-method" onchange="showPaymentDetails()">
-            <option value="">Selecciona un método de pago</option>
-            <option value="Nequi">Nequi</option>
-            <option value="Bancolombia">Bancolombia</option>
-        </select>
-        <div id="payment-details" style="display: none;">
-            <p id="account-info"></p>
-        </div>
-        <label for="payment-proof">Comprobante de Pago:</label>
-        <input type="file" id="payment-proof" accept="image/*">
-        <button onclick="sendOrder()">Enviar Pedido</button>
-    </section>
-
-    <!-- Confirmación -->
-    <section id="confirmation" style="display: none;">
-        <div class="confirmation-container">
-            <h2>¡Gracias por tu pedido! 🎉</h2>
-            <p>Hemos recibido tu pedido y estamos procesándolo. Te contactaremos pronto por WhatsApp para confirmar los detalles.</p>
-            <p>Si tienes alguna pregunta, no dudes en <a href="https://wa.me/573025287134" target="_blank">contactarnos por WhatsApp</a>.</p>
-            <button onclick="returnToMenu()">Volver al Menú</button>
-        </div>
-    </section>
-
-    <div class="promo-banner">
-        🎉 ¡10% de descuento en tu primer pedido! Usa el código STRAWBERRY10
-    </div>
-
-
-    <section id="hours">
-        <h2>Horarios de Atención</h2>
-        <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-        <p>Sábados: 10:00 AM - 4:00 PM</p>
-        <p>Domingos: Cerrado</p>
-    </section>
-
-
-    <a href="https://wa.me/573025287134" class="whatsapp-button" target="_blank">
-        💬 Contactar por WhatsApp
-    </a>
-
-
-    <script src="script.js"></script>
+        </footer>
+    </main>
 </body>
 </html>

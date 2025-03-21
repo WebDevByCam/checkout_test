@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strawberry - Pedidos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo Strawberry" class="logo-image">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="index.html#memories">Nosotros</a></li>
+        </ul>
+        <div class="cart-icon float" onclick="openCartModal()">
+            <a href="#cartModal" style="text-decoration: none; color: #fff;">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="floatingCartCount">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Sección del Menú -->
+        <section id="menu" class="menu-section">
+            <h1>Nuestro Menú</h1>
+
+            <!-- Categoría: Fresas con Crema -->
+            <div class="menu-category">
+                <h2>Fresas con Crema</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="images/big-berry.jpg" alt="Big Berry" class="menu-item-image">
+                        <h3>¡Big Berry!</h3>
+                        <p>2 secciones, 2 toppings, 2 salsas.</p>
+                        <div class="price">$20.000</div>
+                        <button onclick="showCustomization('Big Berry', 20000, 2, 2, 2)">Personalizar y Agregar</button>
+                    </div>
+                    <div class="menu-item">
+                        <img src="images/mini-berry.jpg" alt="Mini Berry" class="menu-item-image">
+                        <h3>¡Mini Berry!</h3>
+                        <p>1 sección, 2 toppings, 2 salsas.</p>
+                        <div class="price">$17.000</div>
+                        <button onclick="showCustomization('Mini Berry', 17000, 1, 2, 2)">Personalizar y Agregar</button>
+                    </div>
+                    <div class="menu-item">
+                        <img src="images/crunchy-berry.jpg" alt="Crunchy Berry" class="menu-item-image">
+                        <h3>¡Crunchy Berry!</h3>
+                        <p>2 toppings, 2 salsas.</p>
+                        <div class="price">$11.000</div>
+                        <button onclick="showCustomization('Crunchy Berry', 11000, 0, 2, 2)">Personalizar y Agregar</button>
+                    </div>
+                    <div class="menu-item">
+                        <img src="images/berry-light.jpg" alt="Berry Light" class="menu-item-image">
+                        <h3>¡Berry Light!</h3>
+                        <p>Base de yogurt griego, galleta triturada, mermelada, piazza y granola.</p>
+                        <div class="price">$20.000</div>
+                        <button onclick="addToCart('Berry Light', 20000)">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categoría: Waffles -->
+            <div class="menu-category">
+                <h2>Waffles</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="images/choclo.jpg" alt="Choclo" class="menu-item-image">
+                        <h3>Choclo</h3>
+                        <p>Con queso doble crema y mermelada de la casa.</p>
+                        <div class="price">$12.000</div>
+                        <button onclick="addToCart('Choclo', 12000)">Agregar al Carrito</button>
+                    </div>
+                    <div class="menu-item">
+                        <img src="images/pandebono.jpg" alt="Pandebono" class="menu-item-image">
+                        <h3>Pandebono</h3>
+                        <p>Topping de crema y fresa.</p>
+                        <div class="price">$14.000</div>
+                        <button onclick="addToCart('Pandebono', 14000)">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categoría: Bebidas -->
+            <div class="menu-category">
+                <h2>Bebidas</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="images/soda-berry.jpg" alt="Soda Berry" class="menu-item-image">
+                        <h3>Soda Berry</h3>
+                        <p>Soda de fresa y limón.</p>
+                        <div class="price">$10.000</div>
+                        <button onclick="addToCart('Soda Berry', 10000)">Agregar al Carrito</button>
+                    </div>
+                    <div class="menu-item">
+                        <img src="images/agua.png" alt="Agua" class="menu-item-image">
+                        <h3>Agua</h3>
+                        <p></p>
+                        <div class="price">$3.000</div>
+                        <button onclick="addToCart('Agua', 3000)">Agregar al Carrito</button>
+                    </div>
+                    <div class="menu-item">
+                        <img src="images/coca-cola.png" alt="Coca Cola" class="menu-item-image">
+                        <h3>Coca Cola</h3>
+                        <p></p>
+                        <div class="price">$3.500</div>
+                        <button onclick="addToCart('Coca Cola', 3500)">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para personalización -->
+        <section class="customization-modal" id="customizationModal" style="display: none;">
+            <div class="modal-content">
+                <h2>Personaliza tu <span id="custom-item-name"></span></h2>
+                <p id="customizationRequirements"></p>
+
+                <!-- Sección -->
+                <div class="customization-section">
+                    <h3>Elige tus Secciones (<span id="sectionsRequired">1</span>)</h3>
+                    <div class="options-list" id="sectionOptions"></div>
+                </div>
+
+                <!-- Toppings -->
+                <div class="customization-section">
+                    <h3>Elige tus Toppings (<span id="toppingsRequired">0</span>)</h3>
+                    <div class="options-list" id="toppingsOptions"></div>
+                </div>
+
+                <!-- Salsas -->
+                <div class="customization-section">
+                    <h3>Elige tus Salsas (<span id="salsasRequired">0</span>)</h3>
+                    <div class="options-list" id="salsasOptions"></div>
+                </div>
+
+                <button onclick="addCustomizedItem()" id="addToCartButton" disabled>Agregar al Carrito</button>
+                <button onclick="closeModal()">Cancelar</button>
+            </div>
+        </section>
+
+        <!-- Modal del Carrito -->
+        <section class="cart-modal" id="cartModal" style="display: none;">
+            <div class="modal-content">
+                <h2>Confirma tu pedido</h2>
+                <div id="cartItems"></div>
+                <div class="cart-total">
+                    <strong>Total:</strong> $<span id="cartTotal">0</span> COP
+                </div>
+                <button onclick="proceedToCheckout()">Proceder al Pago</button>
+                <button onclick="closeCartModal()">Cerrar</button>
+            </div>
+        </section>
+
+        <!-- Checkout -->
+        <section id="checkout" style="display: none;">
+            <div class="modal-content">
+                <h2>Checkout</h2>
+                <label for="customer-name">Nombre:</label>
+                <input type="text" id="customer-name" placeholder="Ingresa tu nombre">
+                <label for="payment-method">Método de Pago:</label>
+                <select id="payment-method" onchange="showPaymentDetails()">
+                    <option value="">Selecciona un método de pago</option>
+                    <option value="Nequi">Nequi</option>
+                    <option value="Bancolombia">Bancolombia</option>
+                </select>
+                <div id="payment-details" style="display: none;">
+                    <p id="account-info"></p>
+                </div>
+                <label for="payment-proof">Comprobante de Pago:</label>
+                <input type="file" id="payment-proof" accept="image/*">
+                <button onclick="sendOrder()">Enviar Pedido</button>
+                <button onclick="closeCheckoutModal()">Cerrar</button>
+            </div>
+        </section>
+
+        <!-- Confirmación -->
+        <section id="confirmation" style="display: none;">
+            <div class="modal-content confirmation-container">
+                <h2>¡Gracias por tu pedido! 🎉</h2>
+                <p>Hemos recibido tu pedido y estamos procesándolo. Te contactaremos pronto por WhatsApp para confirmar los detalles.</p>
+                <p>Si tienes alguna pregunta, no dudes en contactarnos por WhatsApp al <a href="https://wa.me/573025287134" target="_blank">+57 302 528 7134</a>.</p>
+                <button onclick="returnToMenu()">Volver al Menú</button>
+            </div>
+        </section>
+
+        <!-- Sección de Horarios -->
+        <section id="hours" class="location-section">
+            <h2>Horarios de Atención</h2>
+            <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+            <p>Sábados: 10:00 AM - 4:00 PM</p>
+            <p>Domingos: Cerrado</p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-section">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Discover</h3>
+                        <ul>
+                            <li><a href="#">Our world</a></li>
+                            <li><a href="#">Stores</a></li>
+                            <li><a href="#">Sweet trends</a></li>
+                            <li><a href="#">Download app</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Franchise</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Logo en el footer" class="footer-logo-image">
+                </div>
+            </div>
+            <div class="footer-social">
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

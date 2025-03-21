@@ -1,128 +1,389 @@
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
-header {
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos de la barra de navegación */
+nav {
   background-color: #FF0000;
   color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.logo {
-  width: 150px;
-  margin-bottom: 10px;
-}
-
-h1, h2, h3, h4 {
-  margin: 0;
-}
-
-h1 {
-  font-size: 2.5em;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-
-h2 {
-  color: #FF0000;
-  text-align: center;
-  margin: 20px 0;
-}
-
-h3 {
-  color: #FF0000;
-  margin-bottom: 10px;
-}
-
-section {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.category {
-  margin-bottom: 30px;
-}
-
-.item {
-  background-color: white;
-  border: 2px solid #FF0000;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.item p {
-  margin: 5px 0;
+.logo {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-button {
+.logo-image {
+  width: 100px;
+  height: auto;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos de la sección principal (index.html) */
+.hero-section {
+  position: relative;
+  height: 80vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-bottom: #FF0000 5px solid;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  color: #FF0000;
+  font-size: 48px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.hero-content button {
+  background-color: #FF0000;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.hero-content button:hover {
+  background-color: #e60000;
+}
+
+/* Estilos de la sección Showstoppers (index.html) */
+.showstoppers-section {
+  background-color: white;
+  padding: 50px 20px;
+  text-align: center;
+  border-bottom: #FF0000 5px solid;
+}
+
+.showstoppers-section h2 {
+  color: #FF0000;
+  font-size: 36px;
+  margin-bottom: 40px;
+  font-weight: normal;
+}
+
+.showstoppers-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.showstopper-item {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.showstopper-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.showstopper-item h3 {
+  color: #FF0000;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+/* Estilos de la sección del Menú (menu.html) */
+.menu-section {
+  background-color: white;
+  padding: 50px 20px;
+}
+
+.menu-section h1 {
+  color: #FF0000;
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: normal;
+}
+
+.menu-category {
+  margin-bottom: 40px;
+}
+
+.menu-category h2 {
+  color: #FF0000;
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.menu-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.menu-item {
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.menu-item h3 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.menu-item p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.menu-item .price {
+  color: #FF0000;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.menu-item button {
   background-color: #FF0000;
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  font-size: 14px;
+  border-radius: 25px;
   cursor: pointer;
-  font-size: 1em;
 }
 
-button:hover {
-  background-color: #cc0000;
+.menu-item button:hover {
+  background-color: #e60000;
 }
 
-button:disabled {
-  background-color: #cccccc;
+/* Estilos del Modal de Personalización (menu.html) */
+.customization-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+.modal-content h2 {
+  color: #FF0000;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.modal-content h3 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.customization-section {
+  margin-bottom: 20px;
+}
+
+.options-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.options-list label {
+  background-color: #f9f9f9;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.options-list input[type="radio"] {
+  display: none;
+}
+
+.options-list input[type="radio"]:checked + label {
+  background-color: #FF0000;
+  color: white;
+}
+
+.options-list select {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.modal-content button {
+  background-color: #FF0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.modal-content button:disabled {
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
-#customization {
-  background-color: white;
-  border: 2px solid #FF0000;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
+.modal-content button:hover:not(:disabled) {
+  background-color: #e60000;
 }
 
-.custom-options {
-  margin-bottom: 20px;
+/* Estilos del Modal del Carrito y Checkout (menu.html) */
+.cart-modal,
+#checkout,
+#confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.custom-options label {
-  display: block;
+.cart-modal .modal-content,
+#checkout .modal-content,
+#confirmation .modal-content {
+  border-top: #FF0000 5px solid;
+}
+
+.cart-total {
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: right;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item p {
   margin: 5px 0;
 }
 
-#cart-section {
-  background-color: white;
-  border: 2px solid #FF0000;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
+.cart-item button {
+  background-color: #FF0000;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-#cart-items p {
-  margin: 5px 0;
+.cart-item button:hover {
+  background-color: #e60000;
 }
 
-#checkout {
-  background-color: white;
-  border: 2px solid #FF0000;
-  border-radius: 10px;
-  padding: 20px;
-}
-
+/* Estilos del Checkout (menu.html) */
 #checkout label {
   display: block;
   margin: 10px 0 5px;
 }
 
-#checkout input, #checkout select {
+#checkout input,
+#checkout select {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -134,22 +395,7 @@ button:disabled {
   margin-top: 10px;
 }
 
-
-
-#confirmation {
-  background-color: #fff;
-  border: 2px solid #FF0000;
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  animation: fadeIn 0.5s ease-in;
-}
-
-.confirmation-container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
+/* Estilos de la página de confirmación (menu.html) */
 .confirmation-container h2 {
   color: #FF0000;
   font-size: 2em;
@@ -186,39 +432,191 @@ button:disabled {
   background-color: #cc0000;
 }
 
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(20px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
-}
-
-
-
-.promo-banner {
-  background-color: #FF0000;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-size: 1.2em;
-}
-
-
-.whatsapp-button {
+/* Float cart (menu.html) */
+.float {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #25D366;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1em;
+  width: 55px;
+  height: 55px;
+  background-color: #FF0000;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 55px;
+  font-size: 24px;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
-.whatsapp-button:hover {
-  background-color: #1ebe52;
+
+.float:hover {
+  transform: scale(1.1);
+}
+
+/* Estilos de la sección Memories Made Sweeter (index.html) */
+.memories-section {
+  background-color: white;
+  padding: 50px 20px;
+  border-bottom: #FF0000 5px solid;
+}
+
+.memories-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.memories-content {
+  flex: 1;
+  min-width: 300px;
+  text-align: left;
+}
+
+.memories-content h2 {
+  color: #FF0000;
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+.memories-content p {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.memories-content button {
+  background-color: #FF0000;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.memories-content button:hover {
+  background-color: #e60000;
+}
+
+.memories-image {
+  flex: 1;
+  min-width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Estilos de la sección de Ubicación con Mapa (index.html) y Horarios (menu.html) */
+.location-section {
+  background-color: white;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.location-section h2 {
+  color: #FF0000;
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+.location-section p {
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.map-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 400px;
+  border-radius: 15px;
+}
+
+/* Estilos del Footer (compartido) */
+.footer-section {
+  background-color: #FF0000;
+  color: white;
+  padding: 40px 20px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.footer-column h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footer-column ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo-image {
+  width: 150px;
+  height: auto;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 20px auto 0;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 24px;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  color: #e60000;
 }
