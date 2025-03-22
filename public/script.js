@@ -181,7 +181,7 @@ function showPaymentDetails() {
         accountInfo.textContent = "Cuenta Nequi: 302 528 7134";
         paymentDetails.style.display = "block";
     } else if (paymentMethod === "Bancolombia") {
-        accountInfo.textContent = "Cuenta Bancolombia: Ahorros #123-456-789 (por favor usa tu número real aquí)";
+        accountInfo.textContent = "Cuenta Bancolombia: Ahorros #123-456-789";
         paymentDetails.style.display = "block";
     } else {
         paymentDetails.style.display = "none";
